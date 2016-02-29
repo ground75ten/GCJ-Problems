@@ -1,0 +1,56 @@
+/* You are given a store credit that you can use to buy items from the store. You want to buy two items whose sum equal your
+total credit. Given a number of cases N, find from a list I of items, the two items that sum up to your credit C amount.
+Return the position of these two items from the list I with the smallest position first and largest second.
+*/
+#include <iostream>
+#include <fstream>
+#include <iomanip> //setprecision
+
+using namespace std;
+void cases (int n, float C, int it, float I[]) {
+    cout << "Case #"<<n<<": ";
+    pair<int,int> buyitems; //hold the position of the items in the list [] to be bought
+    bool notfound = true;
+    for(int i=0; i < it && notfound; i++) {
+        for(int k=0; k < it && notfound; k++) {
+            //check if the two items add up to the credit amount
+            if(I[i] + I[k] == C) {
+                if(i == k) { buyitems.first = buyitems.second = i; }
+                else {
+                //store the smallest position as first
+                buyitems.first = (i < k) ? i: k;
+                //store the largest position as last
+                buyitems.second = (i > k) ? i: k;
+                notfound = false;
+                }
+            }
+        }
+    }
+    if(notfound) { cout << "no items found to sum up to total store credit\n"; }
+    else //print the pair with items' positions
+         {cout <<buyitems.first << " " << buyitems.second<<endl; }
+}
+
+int main(){
+    int N; //total number of cases
+    float C; //amount of credit you have at the store
+    int items = 1000; //number of items in the store
+    float I[items]; //list of items in store with price P per item
+
+    cout << "Enter number of cases: ";
+    cin >> N;
+    
+    for (int n=0; n<N; n++) {
+        cout <<"Enter the credit amount: ";
+        cin >> C;
+        cout <<"Enter the number of items in store: ";
+        cin >> fixed >> setprecision(2) >> items;
+        cout <<"Enter each item price separate by space: ";
+        for(int i=0; i<items; i++) {
+            cin >> I[i];
+        }
+        cases(n+1,C,items,I);
+    }
+
+return 0;
+}
