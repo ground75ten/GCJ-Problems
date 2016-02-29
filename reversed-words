@@ -1,0 +1,34 @@
+/* Reverse Words. Given a list of words separated by space, reverse the order of words.
+    Example: apple banana pear -> Output: pear banana apple
+*/
+#include <iostream>
+#include<stack>
+#include <string>
+#include <sstream> //stringstream
+
+using namespace std;
+
+int main(){
+    string sentence; //holds the list of words
+    cout <<"Enter words separated by space:\n";
+    getline(cin,sentence);
+
+    stack<string> s; //stack to hold the words
+    string word; //to each individual word to be pushed to s
+    stringstream str; 
+    str << sentence;
+    
+    //read each words (removing the space separator) and push them to the stack
+    while(getline(str,word, ' ')) {
+        s.push(word);
+    }
+    //output the stack with reversed ordered words
+    cout<<"Reversed order of words:\n";
+    while(!s.empty()) {
+            cout <<s.top()<<" ";
+            s.pop();
+    }
+
+return 0;
+}
+
